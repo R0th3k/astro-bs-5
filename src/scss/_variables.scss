@@ -1,0 +1,29 @@
+//Bootstrap Colors
+$primary:#000000;
+$secondary:#fefefe;
+
+$success: #4DB169;
+$info: #2384A5;
+$warning:#F6B82C;
+$danger: #FE0000;
+$light: #FDFFFF;
+$dark: #26201C;
+
+
+$body-bg: $light;
+$body-color: $primary;
+$navbar-brand-font-size:.8rem;
+$navbar-toggler-font-size:.8rem;
+
+//Override BS Colors
+$theme-colors: (
+  "primary": $primary,
+  "secondary": $secondary,
+  "success": $success,
+  "danger": $danger,
+  "warning": $warning,
+  "info": $info,
+  "light": $light,
+  "dark": $dark,
+);
+

@@ -1,0 +1,90 @@
+    ---
+    const sections = [
+    { name: "Inicio", href: "./", isAnchor: false },
+    { name: "Blog", href: "blog", isAnchor: false },
+    ];
+    import { SITE_TITLE } from '@/consts';
+    ---
+
+    <nav class="navbar navbar-expand-lg mb-5 fixed-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" href={import.meta.env.BASE_URL}>
+        <img src="/assets/images/logo.svg" alt={SITE_TITLE} class="navbar-logo" />
+        </a>
+        
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            {sections.map((section) => (
+                <li class="nav-item">
+                <a
+                    class={`nav-link text-black ${section.href === "./" ? "active" : ""}`}
+                    href={
+                    section.external
+                        ? section.href
+                        : import.meta.env.BASE_URL + section.href
+                    }
+                    {...(section.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                >
+                    {section.name}
+                </a>
+                </li>
+            ))}
+            </ul>
+        </div>
+        
+    </div>
+    </nav>
+    <style is:inline>
+    .navbar{
+        background: rgba(255, 255, 255, 0.5);
+        backdrop-filter: saturate(180%) blur(33px);
+        
+        transition: all 0.5s ease;
+        @media (width > 768px) {
+        padding-inline: 4.5rem;
+        }
+        /* filter: invert(100%); */
+        & .nav-link{
+        /* opacity: 0; */
+        transition: all 0.5s ease;
+        }
+    }
+    .navbar-brand img {
+        max-height: 60px; 
+        transition: max-height 0.5s ease;
+        /* filter:brightness(0) */
+    }
+    .navbar-scrolled .navbar-brand img {
+        max-height: 60px; 
+    }
+    .navbar-scrolled  {
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: saturate(180%) blur(5px);
+        transition: all 0.5s ease;
+        box-shadow: rgba(0,0,0,.33) 0 0 20px;
+        /* filter: invert(0); */
+        & .nav-link{
+        opacity: 1;
+        transition: all 0.5s ease;
+        }
+        /* & .navbar-brand img {
+        filter:brightness(0) saturate(100%))
+        } */
+    }
+
+    </style>
+
+
+

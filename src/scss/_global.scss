@@ -1,0 +1,59 @@
+:root{
+    --border-radius: 10px;
+}
+
+::-moz-selection {
+    color: white;
+    background: $primary;
+}
+
+::selection {
+    color: white;
+    background: $primary;
+}
+
+::-webkit-input-placeholder {
+    color: $dark;
+    opacity: 1 !important;
+}
+::-moz-placeholder {
+    color: $dark;
+    opacity: 1 !important;
+}
+:-ms-input-placeholder {
+    color: $dark;
+    opacity: 1 !important;
+}
+:-moz-placeholder {
+    color: $dark;
+    opacity: 1 !important;
+}
+
+a{
+    text-decoration: none!important;
+    font-weight: initial;
+    cursor: pointer;
+    transition: all ease .5s;
+    color:$info;
+    &:hover{
+        transition: all ease .5s;
+    }
+}
+
+html{
+    overflow-x: hidden;
+    font-size: initial!important;
+    scrollbar-color: var(--bs-primary) var(--bs-p-silver);
+    scrollbar-width: thin;
+}
+body {
+	
+    font-family: "Montserrat", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    // background: url(https:///assets/images/bg-body-10.webp) $secondary;
+    color:$primary;
+    font-size: 20px;
+    overflow-x: hidden;
+}
