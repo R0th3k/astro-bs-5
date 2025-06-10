@@ -1,9 +1,5 @@
     ---
-    const sections = [
-    { name: "Inicio", href: "./", isAnchor: false },
-    { name: "Blog", href: "blog", isAnchor: false },
-    ];
-    import { SITE_TITLE, URLWEB } from '@/consts';
+    import { SITE_TITLE, URLWEB, MAIN_NAV } from '@/consts';
     ---
 
     <nav class="navbar navbar-expand-lg mb-5 fixed-top">
@@ -26,7 +22,7 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-            {sections.map((section) => (
+            {MAIN_NAV.map((section) => (
                 <li class="nav-item">
                 <a
                     class={`nav-link text-black ${section.href === "./" ? "active" : ""}`}
