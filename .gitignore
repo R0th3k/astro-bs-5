@@ -25,3 +25,6 @@ pnpm-debug.log*
 
 # Ftp Config
 #ftp.config
+
+#package-lock.json
+package-lock.json

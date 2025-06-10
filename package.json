@@ -1,5 +1,5 @@
 {
-  "name": "feria-chicahuales",
+  "name": "astro-bs",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
@@ -14,7 +14,9 @@
     "@astrojs/sitemap": "^3.3.0",
     "@astrojs/vue": "^5.0.10",
     "astro": "^5.7.2",
-    "sass": "^1.83.4"
+    "sass": "^1.83.4",
+    "postcss-nested": "^7.0.2",
+    "autoprefixer": "^10.4.21"
   },
   "devDependencies": {
     "bootstrap": "^5.3.3",
