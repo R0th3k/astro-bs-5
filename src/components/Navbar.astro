@@ -1,11 +1,12 @@
     ---
     import { SITE_TITLE, URLWEB, MAIN_NAV } from '@/consts';
+    import Image from './Image.astro';
     ---
 
     <nav class="navbar navbar-expand-lg mb-5 fixed-top">
     <div class="container">
         <a class="navbar-brand" href={URLWEB}>
-        <img src=`${URLWEB}assets/images/logo.svg` alt={SITE_TITLE} class="navbar-logo" />
+            <Image name="logo.svg" class="navbar-logo" width={133} loading="lazy"></Image>
         </a>
         
         <button

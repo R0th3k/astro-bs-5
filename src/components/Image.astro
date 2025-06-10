@@ -1,4 +1,6 @@
 ---
+import { URLWEB } from '@/consts';
+
 
 interface Props {
   name: string;
@@ -22,7 +24,7 @@ const {
 ---
 
 <img
-  src={`/assets/images/${name}`}
+  src={`${URLWEB}assets/images/${name}`}
   alt={alt}
   class={className}
   width={width}

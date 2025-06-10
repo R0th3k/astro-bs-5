@@ -43,17 +43,14 @@ a{
 html{
     overflow-x: hidden;
     font-size: initial!important;
-    scrollbar-color: var(--bs-primary) var(--bs-p-silver);
-    scrollbar-width: thin;
+    scrollbar-color: $primary $secondary;
+    // scrollbar-width: thin;
 }
 body {
-	
     font-family: "Montserrat", serif;
     font-optical-sizing: auto;
     font-weight: 400;
     font-style: normal;
-    // background: url(https:///assets/images/bg-body-10.webp) $secondary;
-    color:$primary;
+    color:$black;
     font-size: 20px;
-    overflow-x: hidden;
 }
