@@ -6,4 +6,9 @@ export function url(path: string): string {
   return `${base}${normalized}`;
 }
 
+export function asset(path: string): string {
+  const clean = (path || '').replace(/^\/+/, '');
+  return url(`/assets/${clean}`);
+}
+
 
