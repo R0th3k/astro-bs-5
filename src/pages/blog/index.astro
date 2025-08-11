@@ -5,6 +5,7 @@ import Footer from '../../components/Footer.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
 import { getCollection } from 'astro:content';
 import FormattedDate from '../../components/FormattedDate.astro';
+import { url } from '@/utils/url';
 
 const posts = (await getCollection('blog')).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
@@ -25,14 +26,15 @@ const posts = (await getCollection('blog')).sort(
           {
             posts.map((post) => (
               <div class="col-md-6 col-lg-4">
-                <a href={`/blog/${post.id}/`} class="text-decoration-none text-dark">
+                <a href={url(`/blog/${post.id}/`)} class="text-decoration-none text-dark">
                   <div class="card h-100 shadow-sm">
                     <img
-                      src={post.data.heroImage}
+                      src={url(post.data.heroImage || '/blog-placeholder-1.jpg')}
                       class="card-img-top"
                       alt={post.data.title}
                       width={720}
                       height={360}
+                      loading="lazy"
                     />
                     <div class="card-body">
                       <h5 class="card-title">{post.data.title}</h5>
@@ -52,11 +54,5 @@ const posts = (await getCollection('blog')).sort(
     </main>
 
     <Footer />
-
-    <!-- Bootstrap 5 JS (Opcional, si necesitas interactividad) -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-      defer
-    ></script>
   </body>
 </html>

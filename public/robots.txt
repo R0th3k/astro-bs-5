@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://hektor.mx/sitemap-index.xml
+

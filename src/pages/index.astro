@@ -1,11 +1,11 @@
 ---
 import Main from "@/layouts/Main.astro";
-import { URLWEB } from "@/consts";
+import { url } from "@/utils/url";
 ---
 
 <Main title="Inicio">
   <div class="container py-5">
-    <img src=`${URLWEB}assets/images/logo.svg` class="navbar-logo mt-5" width="333" />
+    <img src={url('/assets/images/logo.svg')} class="navbar-logo mt-5" width="333" alt="Logo" />
     <h1 class="mb-4">¡Hola desde Astro + SCSS!</h1>
     <p class="lead">Este es un ejemplo de estructura base con Astro, SCSS y Bootstrap 5.</p>
   </div>

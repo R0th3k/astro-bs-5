@@ -1,15 +1,17 @@
     ---
-    const sections = [
-    { name: "Inicio", href: "./", isAnchor: false },
-    { name: "Blog", href: "blog", isAnchor: false },
+    const sections: Array<{ name: string; href: string; isAnchor?: boolean; external?: boolean }> = [
+      { name: "Inicio", href: "/" },
+      { name: "Blog", href: "/blog" },
     ];
-    import { SITE_TITLE, URLWEB } from '@/consts';
+    import { SITE_TITLE } from '@/consts';
+    import { url } from '@/utils/url';
+    const pathname = Astro.url.pathname;
     ---
 
     <nav class="navbar navbar-expand-lg mb-5 fixed-top">
     <div class="container-fluid">
-        <a class="navbar-brand" href={URLWEB}>
-        <img src=`${URLWEB}assets/images/logo.svg` alt={SITE_TITLE} class="navbar-logo" />
+        <a class="navbar-brand" href={url('/')}> 
+        <img src={url('/assets/images/logo.svg')} alt={SITE_TITLE} class="navbar-logo" />
         </a>
         
         <button
@@ -29,13 +31,11 @@
             {sections.map((section) => (
                 <li class="nav-item">
                 <a
-                    class={`nav-link text-black ${section.href === "./" ? "active" : ""}`}
-                    href={
-                    section.external
-                        ? section.href
-                        : URLWEB + section.href
-                    }
-                    {...(section.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                    class={`nav-link text-black ${(
+                      section.href === '/' ? pathname === '/' : pathname.startsWith(section.href)
+                    ) ? 'active' : ''}`}
+                    href={url(section.href)}
+                    aria-current={(section.href === '/' ? pathname === '/' : pathname.startsWith(section.href)) ? 'page' : undefined}
                 >
                     {section.name}
                 </a>
@@ -46,6 +46,17 @@
         
     </div>
     </nav>
+    <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const toggler = document.querySelector('.navbar-toggler');
+      const collapse = document.querySelector('#navbarSupportedContent');
+      if (!toggler || !collapse) return;
+      toggler.addEventListener('click', () => {
+        const isShown = collapse.classList.toggle('show');
+        toggler.setAttribute('aria-expanded', String(isShown));
+      });
+    });
+    </script>
     <style is:inline>
     .navbar{
         background: rgba(255, 255, 255, 0.5);

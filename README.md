@@ -1,68 +1,104 @@
-# Astro Starter Kit: Blog
+# Proyecto Astro + Bootstrap 5 + SCSS
 
-```sh
-npm create astro@latest -- --template blog
+Sitio estático en Astro con blog (MD/MDX), Bootstrap 5 desde SCSS, sitemap y RSS listos para producción.
+
+## Requisitos
+- Node 18+ (recomendado 20+)
+- npm 9+
+
+## Instalación
+```bash
+npm install
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/blog)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/blog)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/blog/devcontainer.json)
+## Desarrollo
+```bash
+npm run dev
+```
+Servidor local: `http://localhost:4321`
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Build de producción
+```bash
+npm run build
+npm run preview
+```
+El build se genera en `dist/`.
 
-![blog](https://github.com/withastro/astro/assets/2244813/ff10799f-a816-4703-b967-c78997e8323d)
-
-Features:
-
-- ✅ Minimal styling (make it your own!)
-- ✅ 100/100 Lighthouse performance
-- ✅ SEO-friendly with canonical URLs and OpenGraph data
-- ✅ Sitemap support
-- ✅ RSS Feed support
-- ✅ Markdown & MDX support
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-├── public/
-├── src/
-│   ├── components/
-│   ├── content/
-│   ├── layouts/
-│   └── pages/
-├── astro.config.mjs
-├── README.md
-├── package.json
-└── tsconfig.json
+## Estructura
+```
+public/           # Estáticos (imágenes, favicon, robots.txt)
+src/
+  components/    # Componentes .astro (Navbar, Footer, BaseHead)
+  content/       # Blog en Markdown/MDX + schemas
+  layouts/       # Layouts: Main y BlogPost
+  pages/         # Rutas del sitio
+  scss/          # Estilos (Bootstrap desde SCSS + parciales)
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Configuración clave
+- `astro.config.mjs` define `site` para URLs absolutas (sitemap, RSS, OG).
+- `src/components/BaseHead.astro` añade metadatos SEO, canonical y OG.
+- `public/robots.txt` publica el sitemap: `Sitemap: https://hektor.mx/sitemap-index.xml`.
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+### Rutas con base (subcarpetas)
+Si vas a desplegar el sitio bajo una subcarpeta (por ejemplo, `https://dominio.com/misitio/`), usa el helper `url(path)` para generar rutas y URLs de assets compatibles con dev y prod.
 
-The `src/content/` directory contains "collections" of related Markdown and MDX documents. Use `getCollection()` to retrieve posts from `src/content/blog/`, and type-check your frontmatter using an optional schema. See [Astro's Content Collections docs](https://docs.astro.build/en/guides/content-collections/) to learn more.
+- Helper: `src/utils/url.ts`
+```ts
+export function url(path: string): string {
+  const base = import.meta.env.BASE_URL || '/';
+  const normalized = path.startsWith('/') ? path.slice(1) : path;
+  return `${base}${normalized}`;
+}
+```
 
-Any static assets, like images, can be placed in the `public/` directory.
+- Enlaces y assets en `.astro`:
+```astro
+---
+import { url } from '@/utils/url';
+---
+<a href={url('/blog')}>Blog</a>
+<img src={url('/assets/images/logo.svg')} alt="Logo" />
+```
 
-## 🧞 Commands
+- En listados dinámicos:
+```astro
+<a href={url(`/blog/${post.id}/`)}>Leer más</a>
+```
 
-All commands are run from the root of the project, from a terminal:
+Nota:
+- Para metadatos (canonical, OG/Twitter) usa `Astro.site` para generar URLs absolutas.
+- Si despliegas SIEMPRE en subcarpeta fija (p.ej. GitHub Pages), también puedes fijar `base` en `astro.config.mjs` (ej. `base: '/mi-repo/'`). `withBase()` usará ese valor automáticamente.
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+## Estilos (Bootstrap desde SCSS)
+- Bootstrap se compila desde `src/scss/index.scss` (no se usa CDN).
+- Puedes personalizar variables en `src/scss/_variables.scss`.
 
-## 👀 Want to learn more?
+Nota: verás advertencias de deprecación de Sass por `@import` y funciones globales; son propias de Bootstrap 5.x. No afectan el build. Para eliminarlas en el futuro, migra a `@use` cuando actualices a una versión de Bootstrap compatible.
 
-Check out [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## Contenido del blog
+- Los posts viven en `src/content/blog/` (`.md` o `.mdx`).
+- El esquema está en `src/content.config.ts`.
+- Lista de posts: `/blog`. Página de post: `/blog/[slug]`.
 
-## Credit
+Frontmatter mínimo por post:
+```yaml
+title: "Título del post"
+description: "Descripción corta"
+pubDate: "2024-06-01"
+heroImage: "/blog-placeholder-1.jpg" # opcional
+```
 
-This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).
+## Buenas prácticas aplicadas
+- Unificación de estilos globales 
+- URLs absolutas en Open Graph/Twitter usando `Astro.site`.
+- Navbar con rutas absolutas desde raíz y `aria-current`.
+- Fechas localizadas a `es-MX`.
+
+## Scripts útiles
+- `npm run dev`: servidor de desarrollo
+- `npm run build`: compilar producción
+- `npm run preview`: previsualizar producción
+
+## Despliegue
+Sube el contenido de `dist/` a tu hosting estático (Netlify, Vercel, GitHub Pages, etc.). Asegura que el dominio en producción coincida con `site` en `astro.config.mjs`.
