@@ -1,0 +1,18 @@
+/* TEAM */
+  Desarrollador: Hektor Pena
+  Sitio web: https://hektor.mx
+  Contacto: hola@hektor.mx
+  Rol: Desarrollo Frontend
+  Cliente: 
+
+/* TECNOLOGIAS */
+  Frontend: HTML5, CSS3, JavaScript
+  Framework CSS: Bootstrap 5
+  Herramientas: Astro, Git, npm
+
+/* SITE */
+  Tipo: Sitio Estatico
+  Estilo: Responsive, Mobile First
+  Fecha: 2025
+
+/* AGRADECIMIENTOS */
